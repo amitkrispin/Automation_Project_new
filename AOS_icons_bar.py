@@ -35,4 +35,32 @@ class AOS_icons_bar:
         return self.driver.find_element(By.ID, "autoComplete")
 
     def search_text(self, text: str):
+        """Method to adding the text we want to search in the textbox"""
         return self.search_icon_textbox().send_keys(text)
+
+    def logout(self):
+        """Method to find the logout element"""
+        self.wait.until(EC.visibility_of_element_located((By.ID, "loginMiniTitle")))
+        return self.driver.find_element(By.CSS_SELECTOR, "a>div.mini-title>[translate='Sign_out']")
+
+    def logout_click(self):
+        """Method of clicking the logout button"""
+        return self.logout().click()
+
+    def my_orders(self):
+        """Method that find My Orders page element"""
+        self.wait.until(EC.visibility_of_element_located((By.ID, "loginMiniTitle")))
+        return self.driver.find_element(By.CSS_SELECTOR, "a>div.mini-title>[translate='My_Orders']")
+
+    def my_orders_click(self):
+        """Method of clicking My Orders button"""
+        return self.my_orders().click()
+
+    def my_account(self):
+        """Method that find My Account element"""
+        self.wait.until(EC.visibility_of_element_located((By.ID, "loginMiniTitle")))
+        return self.driver.find_element(By.CSS_SELECTOR, "a>div.mini-title>[translate='My_account']")
+
+    def my_account_click(self):
+        """Method of clicking My Account button"""
+        return self.my_account().click()

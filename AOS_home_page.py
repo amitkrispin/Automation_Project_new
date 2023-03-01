@@ -2,24 +2,13 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
 
 
 class Home_page:
     def __init__(self, driver: webdriver.Chrome):
         self.driver = driver
         self.wait = WebDriverWait(self.driver, 10)
-
-    def user_button(self):
-        return self.driver.find_element(By.ID, "menuUser")
-
-    def username(self):
-        return self.driver.find_element(By.NAME, "username")
-
-    def password(self):
-        return self.driver.find_element(By.NAME, "password")
-
-    def signIN_button(self):
-        return self.driver.find_element(By.ID, "sign_in_btnundefined")
 
     def speakers_category(self):
         self.wait.until(EC.visibility_of_element_located((By.ID, "speakersImg")))
@@ -41,6 +30,8 @@ class Home_page:
         self.wait.until(EC.visibility_of_element_located((By.ID, "headphonesImg")))
         return self.driver.find_element(By.ID, "headphonesImg")
 
-    def home_page(self):
-        self.wait.until(EC.visibility_of_element_located((By.ID, By.ID, "Layer_1")))
-        return self.driver.find_element(By.ID, "Layer_1")
+    def move_to_special_offer(self) :
+        sp_offer = self.wait.until(EC.visibility_of_element_located((By.ID, "see_offer_btn")))
+        actions = ActionChains(self.driver)
+        actions.move_to_element(sp_offer).perform()
+        return sp_offer
