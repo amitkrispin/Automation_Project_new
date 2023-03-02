@@ -16,9 +16,12 @@ class Cart:
     def table_rows(self):
         return self.table_cart().find_elements(By.TAG_NAME, "tr")
 
-    def items_title(self):
-        return self.table_rows()[1].find_elements(By.TAG_NAME, "td")
-
-    def item_title_for(self):
-        for row in self.items_title():
-            return row.text
+    def item_name_table(self) :
+        num = 1
+        rows = self.table_rows()[num:]
+        for row in rows:
+            td_list = row.find_elements(By.TAG_NAME, "td")
+            name = td_list[1].text
+            quantity = td_list[4].text
+            price = td_list[5].text
+            return (name ,quantity ,price)
