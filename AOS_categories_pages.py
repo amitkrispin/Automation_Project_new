@@ -1,10 +1,13 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class AOS_categories:
     def __init__(self, driver: webdriver.Chrome):
         self.driver = driver
+        self.wait = WebDriverWait(self.driver, 10)
 
     def category_title(self):
         """Method that find the category title"""
@@ -20,5 +23,6 @@ class AOS_categories:
 
     def choose_product(self, num: int):
         """Method to choose the product"""
+        self.wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, "div.cell>ul")))
         return self.products()[num-1]
 
