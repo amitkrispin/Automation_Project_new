@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from AOS_home_page import Home_page
+from AOS_checkout import AdvantageCheckout
 from AOS_cart_page import Cart
 from AOS_sign_in_page import sign_in
 from time import sleep
@@ -17,12 +18,15 @@ advantge = Home_page(driver)
 icon=AOS_icons_bar(driver)
 cart = Cart(driver)
 icon.person_icon().click()
-ad.username_element().send_keys("project")
-ad.password_element().send_keys("1234Qwer")
+ad.username_element().send_keys("12345")
+ad.password_element().send_keys("Orwa1234")
 ad.signIN_button().click()
 sleep(2)
 driver.find_element(By.ID, "menuCart").click()
-sleep(10)
-print(cart.item_name_table(),end="\t")
+driver.find_element(By.ID,"checkOutButton").click()
+checkout=AdvantageCheckout(driver)
+checkout.move_to_checkout().click()
+checkout.SafePay_Pay_Button().click()
+sleep(2)
 
 sleep(3)
