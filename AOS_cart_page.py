@@ -14,14 +14,24 @@ class Cart:
         return self.driver.find_element(By.CLASS_NAME, "fixedTableEdgeCompatibility")
 
     def table_rows(self):
-        return self.table_cart().find_elements(By.TAG_NAME, "tr")
+        return self.table_cart().find_elements(By.CSS_SELECTOR, "tbody>tr")
 
     def item_name_table(self) :
-        num = 1
-        rows = self.table_rows()[num:]
+        rows = self.table_rows()
+        title=[]
         for row in rows:
             td_list = row.find_elements(By.TAG_NAME, "td")
             name = td_list[1].text
             quantity = td_list[4].text
-            price = td_list[5].text
-            return (name ,quantity ,price)
+            x=td_list[5].text.index("\n")
+            price = td_list[5].text[1:x]
+            title.append([name ,quantity ,price])
+        return title
+    def cartshopping(self):
+        return self.driver.find_element(By.CLASS_NAME,"select")
+    def edit_button(self,num:int):
+        button= self.driver.find_elements(By.CSS_SELECTOR,".edit")
+        return button[num-1].click()
+    def remove_button(self,num:int):
+        but=self.driver.find_elements(By.CSS_SELECTOR,".remove")
+        return but[num-1].click()
