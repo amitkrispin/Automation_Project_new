@@ -129,3 +129,8 @@ class AOS_icons_bar:
             return self.quantity_element()[index+1].text
         else:
             return self.quantity_element()[num-1].text
+
+    def remove_product(self):
+        """Method of removing product from cart icon lil flow window"""
+        self.wait.until(EC.visibility_of_element_located((By.TAG_NAME, "table")))
+        return self.driver.find_element(By.CSS_SELECTOR, ".removeProduct").click()

@@ -33,7 +33,6 @@ class sign_in:
 
     def signIN_button(self):
         """Method to find the signin button"""
-        self.wait.until(EC.visibility_of_element_located((By.ID, "sign_in_btnundefined")))
         return self.driver.find_element(By.ID, "sign_in_btnundefined")
 
     def account_name(self):

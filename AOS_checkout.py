@@ -34,3 +34,10 @@ class AdvantageCheckout:
     def New_Account_page(self):
         self.wait.until(EC.visibility_of_element_located((By.ID,"registration_btnundefined")))
         self.driver.find_element(By.ID,"registration_btnundefined").click()
+    def New_Account(self,usr:str,ema:str,pas:str,cpas:str):
+        self.driver.find_element(By.NAME,"usernameRegisterPage").send_keys(usr)
+        self.driver.find_element(By.NAME,"emailRegisterPage").send_keys(ema)
+        self.driver.find_element(By.NAME,"passwordRegisterPage").send_keys(pas)
+        self.driver.find_element(By.NAME,"confirm_passwordRegisterPage").send_keys(cpas)
+        self.driver.find_element(By.NAME,"i_agree").click()
+        self.driver.find_element(By.ID,"register_btnundefined").click()
