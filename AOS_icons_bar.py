@@ -13,22 +13,22 @@ class AOS_icons_bar:
 
     def person_icon(self):
         """Method to the person icon"""
-        self.wait.until(EC.visibility_of_element_located((By.ID, "menuUser")))
+        self.wait.until(EC.visibility_of_element_located((By.ID, "our_products")))
         return self.driver.find_element(By.ID, "menuUser")
 
     def cart_icon(self):
         """Method to the cart icon"""
-        self.wait.until(EC.visibility_of_element_located((By.ID, "menuCart")))
+        self.wait.until(EC.visibility_of_element_located((By.ID, "our_products")))
         return self.driver.find_element(By.ID, "menuCart")
 
     def logo(self):
         """Method to the logo that help to get to the home page by clicking on it"""
-        self.wait.until(EC.visibility_of_element_located((By.ID, "Layer_1")))
+        self.wait.until(EC.visibility_of_element_located((By.ID, "our_products")))
         return self.driver.find_element(By.ID, "Layer_1")
 
     def search_icon(self):
         """Method to the search icon"""
-        self.wait.until(EC.visibility_of_element_located((By.ID, "menuSearch")))
+        self.wait.until(EC.visibility_of_element_located((By.ID, "our_products")))
         return self.driver.find_element(By.ID, "menuSearch")
 
     def search_icon_textbox(self):
@@ -134,3 +134,6 @@ class AOS_icons_bar:
         """Method of removing product from cart icon lil flow window"""
         self.wait.until(EC.visibility_of_element_located((By.TAG_NAME, "table")))
         return self.driver.find_element(By.CSS_SELECTOR, ".removeProduct").click()
+
+
+
