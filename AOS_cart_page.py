@@ -25,11 +25,25 @@ class Cart:
             quantity = td_list[4].text
             x = td_list[5].text.index("\n")
             price = td_list[5].text[1:x]
-            title.append([name, quantity, price])
+            price = price.replace(',', '')
+            title.append([name, quantity, float(price)])
         return title
+    def item_price(self):
+        rows = self.table_rows()
+        price2 = []
+        for row in rows :
+            td_list = row.find_elements(By.TAG_NAME, "td")
+            x = td_list[5].text.index("\n")
+            price = td_list[5].text[1:x]
+            price = price.replace(',', '')
+            price2.append(float(price))
+        return price2
+
 
     def cartshopping(self):
-        return self.driver.find_element(By.CLASS_NAME, "select")
+        "Method to find cart page name"
+        self.wait.until(EC.visibility_of_element_located((By.TAG_NAME, "table")))
+        return self.driver.find_element(By.CLASS_NAME, "select").text
 
     def edit_button(self, num: int):
         button = self.driver.find_elements(By.CSS_SELECTOR, ".edit")
@@ -38,3 +52,10 @@ class Cart:
     def remove_button(self, num: int):
         but = self.driver.find_elements(By.CSS_SELECTOR, ".remove")
         return but[num - 1].click()
+
+    def total_price(self) :
+        checkout_button = self.driver.find_element(By.ID, "checkOutButton")
+        checkout_text = checkout_button.text
+        price_text = checkout_text.replace("CHECKOUT ", "").replace("(", "").replace(")", "").replace("$", "").replace(",","")
+        return float(price_text)
+

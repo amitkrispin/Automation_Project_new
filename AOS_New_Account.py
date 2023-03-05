@@ -12,7 +12,7 @@ class New_Account:
         self.driver.find_element(By.NAME,"emailRegisterPage").send_keys(ema)
         self.driver.find_element(By.NAME,"passwordRegisterPage").send_keys(pas)
         self.driver.find_element(By.NAME,"confirm_passwordRegisterPage").send_keys(cpas)
-        i_agre=self.driver.find_element(By.NAME,"i_agree")
+        i_agre=self.driver.find_element(By.NAME,"i_agree").click()
         momo = ActionChains(self.driver)
         momo.move_to_element(i_agre).click().perform()
         self.driver.find_element(By.ID,"register_btnundefined").click()

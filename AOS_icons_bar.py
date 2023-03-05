@@ -13,18 +13,18 @@ class AOS_icons_bar:
 
     def person_icon(self):
         """Method to the person icon"""
-        self.wait.until(EC.visibility_of_element_located((By.ID, "our_products")))
+        self.wait.until(EC.invisibility_of_element_located((By.CLASS_NAME, "PopUp")))
         return self.driver.find_element(By.ID, "menuUser")
 
     def cart_icon(self):
         """Method to the cart icon"""
-        self.wait.until(EC.visibility_of_element_located((By.ID, "our_products")))
+        self.wait.until(EC.invisibility_of_element_located((By.CLASS_NAME, "PopUp")))
         return self.driver.find_element(By.ID, "menuCart")
 
     def logo(self):
         """Method to the logo that help to get to the home page by clicking on it"""
-        self.wait.until(EC.visibility_of_element_located((By.ID, "our_products")))
-        return self.driver.find_element(By.ID, "Layer_1")
+
+        return self.driver.find_element(By.ID, "Layer_1").click()
 
     def search_icon(self):
         """Method to the search icon"""
@@ -130,10 +130,20 @@ class AOS_icons_bar:
         else:
             return self.quantity_element()[num-1].text
 
-    def remove_product(self):
+    def remove_product(self,num:int):
         """Method of removing product from cart icon lil flow window"""
         self.wait.until(EC.visibility_of_element_located((By.TAG_NAME, "table")))
-        return self.driver.find_element(By.CSS_SELECTOR, ".removeProduct").click()
+        eh= self.driver.find_elements(By.CSS_SELECTOR, ".removeProduct")
+        return eh[num].click()
+    def total_items(self):
+        self.wait.until(EC.visibility_of_element_located((By.TAG_NAME, "table")))
+        el=self.driver.find_elements(By.CSS_SELECTOR,"tfoot>tr>td>span>label")
+        total_items_text = el[0].text
+        total_items = total_items_text.replace("(", "").replace(" Items)", "")
+        return total_items
+
+
+
 
 
 

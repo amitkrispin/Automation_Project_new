@@ -14,11 +14,11 @@ class AdvantageCheckout:
         self.wait.until(EC.visibility_of_element_located((By.ID, "next_btn")))
         return self.driver.find_element(By.ID, "next_btn")
 
-    def SafePayUsername(self):
-        return self.driver.find_element(By.NAME, "safepay_username")
+    def SafePayUsername(self,user:str):
+        return self.driver.find_element(By.NAME, "safepay_username").send_keys(user)
 
-    def SafePayePassword(self):
-        return self.driver.find_element(By.NAME, "safepay_password")
+    def SafePayePassword(self,password:str):
+        return self.driver.find_element(By.NAME, "safepay_password").send_keys(password)
 
     def CreditCard(self, num: str, cvv: str, name: str, mm: str, yyyy: str):
         self.driver.find_element(By.NAME, "masterCredit").click()
@@ -49,3 +49,6 @@ class AdvantageCheckout:
         self.driver.find_element(By.NAME, "confirm_passwordRegisterPage").send_keys(cpas)
         self.driver.find_element(By.NAME, "i_agree").click()
         self.driver.find_element(By.ID, "register_btnundefined").click()
+    def Payment_sucssfully(self):
+        mas=self.driver.find_element(By.CSS_SELECTOR,"div>h2>span").text
+        return mas

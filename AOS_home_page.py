@@ -34,4 +34,5 @@ class Home_page:
         sp_offer = self.wait.until(EC.visibility_of_element_located((By.ID, "see_offer_btn")))
         actions = ActionChains(self.driver)
         actions.move_to_element(sp_offer).perform()
-        return sp_offer
+        spic=self.driver.find_elements(By.CSS_SELECTOR,"article>h3")
+        return spic[0].text
