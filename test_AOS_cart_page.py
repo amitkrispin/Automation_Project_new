@@ -29,6 +29,7 @@ class Test_AOS_Site(TestCase):
         self.cart=Cart(self.driver)
         self.REGISTRATION=New_Account(self.driver)
         self.check=AdvantageCheckout(self.driver)
+        self.sginIn=sign_in(self.driver)
 
     def test_cart_window_1(self):
         self.home_page.speakers_category().click()
@@ -150,7 +151,7 @@ class Test_AOS_Site(TestCase):
         self.assertEqual("TABLETS",self.categories.category_title_text())
         self.icons.logo()
         self.assertEqual("SPECIAL OFFER",self.home_page.move_to_special_offer())
-    def test_checkout(self):
+    def test_checkout_1(self):
         self.home_page.tablets_category().click()
         self.categories.choose_product(3).click()
         self.product.add_to_cart().click()
@@ -162,7 +163,7 @@ class Test_AOS_Site(TestCase):
         self.icons.cart_lil_window()
         self.icons.checkout_button().click()
         self.check.New_Account_page()
-        self.check.New_Account("1234567","nono@gmail.com","Abcd1234","Abcd1234")
+        self.check.New_Account("1234567","nono@gmail.com","Abc123","Abc123")
         self.check.move_to_checkout().click()
         self.check.SafePayUsername("mama123")
         self.check.SafePayePassword("Baba123")
@@ -171,3 +172,30 @@ class Test_AOS_Site(TestCase):
         self.icons.cart_icon().click()
         self.assertEqual(self.cart.item_name_table(),[])
         sleep(10)
+    def test_checkout_2(self):
+        self.home_page.tablets_category().click()
+        self.categories.choose_product(3).click()
+        self.product.add_to_cart().click()
+        self.icons.logo()
+        self.home_page.speakers_category().click()
+        self.categories.choose_product(2).click()
+        self.product.add_to_cart().click()
+        self.icons.cart_lil_window()
+        self.icons.checkout_button().click()
+        self.check.user_name("1234567")
+        self.check.pass_word("Abc123")
+        self.check.login_button().click()
+        self.check.move_to_checkout().click()
+        self.check.CreditCard("123456789012","123","abc","12","2027")
+        self.check.Crideit_Pay_Button().click()
+        self.icons.cart_icon().click()
+        self.assertEqual(self.cart.item_name_table(), [])
+        sleep(7)
+
+    def test_login_out(self):
+        self.icons.person_icon().click()
+        self.sginIn.username_text("12345")
+        self.sginIn.password_text("Orwa1234")
+        self.sginIn.signIN_button().click()
+        self.icons.person_icon().click()
+        self.icons.logout_click()

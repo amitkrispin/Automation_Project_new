@@ -52,3 +52,11 @@ class AdvantageCheckout:
     def Payment_sucssfully(self):
         mas=self.driver.find_element(By.CSS_SELECTOR,"div>h2>span").text
         return mas
+    def user_name(self,user:str):
+        usr=self.driver.find_element(By.NAME,"usernameInOrderPayment").send_keys(user)
+        return usr
+    def pass_word(self,password:str):
+        pas=self.driver.find_element(By.NAME,"passwordInOrderPayment").send_keys(password)
+        return pas
+    def login_button(self):
+        return self.driver.find_element(By.ID,"login_btnundefined")
