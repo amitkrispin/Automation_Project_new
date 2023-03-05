@@ -23,7 +23,6 @@ class AOS_icons_bar:
 
     def logo(self):
         """Method to the logo that help to get to the home page by clicking on it"""
-
         return self.driver.find_element(By.ID, "Layer_1").click()
 
     def search_icon(self):
@@ -81,7 +80,7 @@ class AOS_icons_bar:
     def product_color_text(self, num: int):
         """Method that bring the color text from the lil flow window of the cart icon"""
         self.wait.until(EC.visibility_of_element_located((By.TAG_NAME, "table")))
-        return self.products_color()[num-1].text
+        return self.products_color()[num - 1].text
 
     def products_name(self):
         """Method that find the product name element from the lil flow window of cart icon"""
@@ -91,7 +90,7 @@ class AOS_icons_bar:
     def product_name_text(self, num: int):
         """Method that bring the product name text from the lil flow window of the cart icon"""
         self.wait.until(EC.visibility_of_element_located((By.TAG_NAME, "table")))
-        return self.products_name()[num-1].text
+        return self.products_name()[num - 1].text
 
     def products_prices(self):
         """Method to find the price element from the lil flow window of the cart icon"""
@@ -106,7 +105,7 @@ class AOS_icons_bar:
     def product_price_float(self, num: int):
         """Method that change the price type from string to float"""
         self.wait.until(EC.visibility_of_element_located((By.TAG_NAME, "table")))
-        price = self.products_prices()[num-1].text
+        price = self.products_prices()[num - 1].text
         price1 = price.replace((price[0]), '').replace(',', '')
         price2 = float(price1)
         return price2
@@ -124,26 +123,23 @@ class AOS_icons_bar:
     def quantity_text(self, num: int):
         """Method that find the quantity text in the lil flow cart icon window"""
         self.wait.until(EC.visibility_of_element_located((By.TAG_NAME, "table")))
-        index = num-1
+        index = num - 1
         if (index % 2) != 0:
-            return self.quantity_element()[index+1].text
+            QUA = self.quantity_element()[index + 1].text.replace("QTY: ", "")
+            return QUA
         else:
-            return self.quantity_element()[num-1].text
+            QUA1 = self.quantity_element()[num - 1].text.replace("QTY: ", "")
+            return QUA1
 
-    def remove_product(self,num:int):
+    def remove_product(self, num: int):
         """Method of removing product from cart icon lil flow window"""
         self.wait.until(EC.visibility_of_element_located((By.TAG_NAME, "table")))
-        eh= self.driver.find_elements(By.CSS_SELECTOR, ".removeProduct")
+        eh = self.driver.find_elements(By.CSS_SELECTOR, ".removeProduct")
         return eh[num].click()
+
     def total_items(self):
         self.wait.until(EC.visibility_of_element_located((By.TAG_NAME, "table")))
-        el=self.driver.find_elements(By.CSS_SELECTOR,"tfoot>tr>td>span>label")
+        el = self.driver.find_elements(By.CSS_SELECTOR, "tfoot>tr>td>span>label")
         total_items_text = el[0].text
         total_items = total_items_text.replace("(", "").replace(" Items)", "")
         return total_items
-
-
-
-
-
-

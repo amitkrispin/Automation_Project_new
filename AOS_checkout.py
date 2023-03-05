@@ -14,10 +14,10 @@ class AdvantageCheckout:
         self.wait.until(EC.visibility_of_element_located((By.ID, "next_btn")))
         return self.driver.find_element(By.ID, "next_btn")
 
-    def SafePayUsername(self,user:str):
+    def SafePayUsername(self, user: str):
         return self.driver.find_element(By.NAME, "safepay_username").send_keys(user)
 
-    def SafePayePassword(self,password:str):
+    def SafePayePassword(self, password: str):
         return self.driver.find_element(By.NAME, "safepay_password").send_keys(password)
 
     def CreditCard(self, num: str, cvv: str, name: str, mm: str, yyyy: str):
@@ -49,14 +49,22 @@ class AdvantageCheckout:
         self.driver.find_element(By.NAME, "confirm_passwordRegisterPage").send_keys(cpas)
         self.driver.find_element(By.NAME, "i_agree").click()
         self.driver.find_element(By.ID, "register_btnundefined").click()
+
     def Payment_sucssfully(self):
-        mas=self.driver.find_element(By.CSS_SELECTOR,"div>h2>span").text
+        self.wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, "div>h2>span")))
+        mas = self.driver.find_element(By.CSS_SELECTOR, "div>h2>span").text
         return mas
-    def user_name(self,user:str):
-        usr=self.driver.find_element(By.NAME,"usernameInOrderPayment").send_keys(user)
-        return usr
-    def pass_word(self,password:str):
-        pas=self.driver.find_element(By.NAME,"passwordInOrderPayment").send_keys(password)
-        return pas
+
+    def user_name(self, user: str):
+        return self.driver.find_element(By.NAME, "usernameInOrderPayment").send_keys(user)
+
+    def pass_word(self, password: str):
+        return self.driver.find_element(By.NAME, "passwordInOrderPayment").send_keys(password)
+
     def login_button(self):
-        return self.driver.find_element(By.ID,"login_btnundefined")
+        return self.driver.find_element(By.ID, "login_btnundefined")
+
+    def pay_now(self):
+        self.wait.until(EC.visibility_of_element_located((By.ID, "pay_now_btn_MasterCredit")))
+        return self.driver.find_element(By.ID, "pay_now_btn_MasterCredit")
+

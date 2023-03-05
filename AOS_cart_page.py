@@ -28,10 +28,11 @@ class Cart:
             price = price.replace(',', '')
             title.append([name, quantity, float(price)])
         return title
+
     def item_price(self):
         rows = self.table_rows()
         price2 = []
-        for row in rows :
+        for row in rows:
             td_list = row.find_elements(By.TAG_NAME, "td")
             x = td_list[5].text.index("\n")
             price = td_list[5].text[1:x]
@@ -39,13 +40,14 @@ class Cart:
             price2.append(float(price))
         return price2
 
-
     def cartshopping(self):
         "Method to find cart page name"
         self.wait.until(EC.visibility_of_element_located((By.TAG_NAME, "table")))
         return self.driver.find_element(By.CLASS_NAME, "select").text
 
     def edit_button(self, num: int):
+        wait = self.driver.find_elements(By.CSS_SELECTOR, "table[ng-show='cart.productsInCart.length > 0']")
+        self.wait.until(EC.invisibility_of_element((wait[0])))
         button = self.driver.find_elements(By.CSS_SELECTOR, ".edit")
         return button[num - 1].click()
 
@@ -53,9 +55,8 @@ class Cart:
         but = self.driver.find_elements(By.CSS_SELECTOR, ".remove")
         return but[num - 1].click()
 
-    def total_price(self) :
+    def total_price(self):
         checkout_button = self.driver.find_element(By.ID, "checkOutButton")
         checkout_text = checkout_button.text
-        price_text = checkout_text.replace("CHECKOUT ", "").replace("(", "").replace(")", "").replace("$", "").replace(",","")
+        price_text = checkout_text.replace("CHECKOUT ", "").replace("(", "").replace(")", "").replace("$", "").replace(",", "")
         return float(price_text)
-
