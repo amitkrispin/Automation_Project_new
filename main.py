@@ -9,7 +9,11 @@ from AOS_sign_in_page import sign_in
 from AOS_products_pages import AOS_products
 from AOS_categories_pages import AOS_categories
 from AOS_New_Account import New_Account
-from time import sleep
+from AOS_my_orders_page import My_orders
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.action_chains import ActionChains
 
 
 class Test_AOS_Site(TestCase):
@@ -18,6 +22,7 @@ class Test_AOS_Site(TestCase):
         self.driver = webdriver.Chrome(service=self.service_chrome)
         self.driver.get("https://www.advantageonlineshopping.com/#/")
         self.driver.implicitly_wait(20)
+        self.wait = WebDriverWait(self.driver, 20)
         self.home_page = Home_page(self.driver)
         self.categories = AOS_categories(self.driver)
         self.product = AOS_products(self.driver)
@@ -26,6 +31,9 @@ class Test_AOS_Site(TestCase):
         self.REGISTRATION = New_Account(self.driver)
         self.check = AdvantageCheckout(self.driver)
         self.sginIn = sign_in(self.driver)
+        self.orders_num_list = []
+        self.orders = My_orders(self.driver)
+        self.AC = ActionChains(self.driver)
 
     def test_cart_window_1(self):
         self.home_page.speakers_category().click()
@@ -48,7 +56,7 @@ class Test_AOS_Site(TestCase):
         self.product.product_quantity_element().click()
         self.product.product_quantity("3")
         self.product.add_to_cart().click()
-        # self.assertEqual("BOSE SOUNDLINK BLUETOOTH SPEAKER III",self.icons.product_name_text(1))
+        self.assertEqual("BOSE SOUNDLINK BLUETOOTH", self.icons.product_name_text(1))
         self.assertEqual("$809.97", self.icons.product_price_text(1))
         self.assertEqual("BLACK", self.icons.product_color_text(1))
         self.assertEqual("3", self.icons.quantity_text(1))
@@ -58,7 +66,7 @@ class Test_AOS_Site(TestCase):
         self.product.product_quantity_element().click()
         self.product.product_quantity("2")
         self.product.add_to_cart().click()
-        # self.assertEqual("HP CHROMEBOOK 14 G1(ENERGY STAR)",self.icons.product_name_text(1))
+        self.assertIn("HP CHROMEBOOK 14",self.icons.product_name_text(1))
         self.assertEqual("$599.98", self.icons.product_price_text(1))
         self.assertEqual("BLACK", self.icons.product_color_text(1))
         self.assertEqual("2", self.icons.quantity_text(1))
@@ -68,7 +76,7 @@ class Test_AOS_Site(TestCase):
         self.product.product_quantity_element().click()
         self.product.product_quantity("1")
         self.product.add_to_cart().click()
-        # self.assertEqual("HP USB 3 BUTTON OPTICAL MOUSE",self.icons.product_name_text(1))
+        self.assertIn("HP USB 3 BUTTON", self.icons.product_name_text(1))
         self.assertEqual("$9.99", self.icons.product_price_text(1))
         self.assertEqual("BLACK", self.icons.product_color_text(1))
         self.assertEqual("1", self.icons.quantity_text(1))
@@ -172,7 +180,7 @@ class Test_AOS_Site(TestCase):
         self.icons.cart_lil_window()
         self.icons.checkout_button().click()
         self.check.New_Account_page()
-        self.check.New_Account("am123", "nono@gmail.com", "Abc123", "Abc123")
+        self.check.New_Account("dav123", "nono@gmail.com", "Abc123", "Abc123")
         self.check.move_to_checkout().click()
         self.check.SafePayUsername("mama123")
         self.check.SafePayePassword("Baba123")
@@ -197,9 +205,15 @@ class Test_AOS_Site(TestCase):
         self.check.login_button().click()
         self.check.move_to_checkout().click()
         self.check.pay_now().click()
+        self.wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, "div>h2>span")))
+        self.orders_num_list.append(self.check.order_number())
         self.icons.cart_icon().click()
         self.assertEqual(self.cart.item_name_table(), [])
-        self.icons.logo()
+        self.icons.home_by_navigation().click()
+        self.wait.until(EC.invisibility_of_element((By.TAG_NAME, "table")))
+        self.icons.person_icon().click()
+        self.icons.my_orders_click()
+        self.assertEqual(self.orders_num_list[0], self.orders.order_num(1))
 
     def test_login_out_10(self):
         self.icons.person_icon().click()

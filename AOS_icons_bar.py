@@ -143,3 +143,7 @@ class AOS_icons_bar:
         total_items_text = el[0].text
         total_items = total_items_text.replace("(", "").replace(" Items)", "")
         return total_items
+
+    def home_by_navigation(self):
+        return self.driver.find_element(By.XPATH, "//nav/a[1]")
+

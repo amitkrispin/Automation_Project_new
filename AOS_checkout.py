@@ -68,3 +68,6 @@ class AdvantageCheckout:
         self.wait.until(EC.visibility_of_element_located((By.ID, "pay_now_btn_MasterCredit")))
         return self.driver.find_element(By.ID, "pay_now_btn_MasterCredit")
 
+    def order_number(self):
+        order_num = self.driver.find_element(By.ID, "orderNumberLabel")
+        return order_num.text
