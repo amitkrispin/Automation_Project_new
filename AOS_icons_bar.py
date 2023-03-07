@@ -142,7 +142,7 @@ class AOS_icons_bar:
         self.wait.until(EC.visibility_of_element_located((By.TAG_NAME, "table")))
         el = self.driver.find_elements(By.CSS_SELECTOR, "tfoot>tr>td>span>label")
         total_items_text = el[0].text
-        total_items = total_items_text.replace("(", "").replace(" Items)", "")
+        total_items = total_items_text.replace("(", "").replace(" Item)", "")
         return total_items
 
     def home_by_navigation(self):

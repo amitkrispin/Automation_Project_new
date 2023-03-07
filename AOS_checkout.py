@@ -34,7 +34,8 @@ class AdvantageCheckout:
         m.select_by_visible_text(mm)
         y = Select(self.driver.find_element(By.NAME, "yyyyListbox"))
         y.select_by_visible_text(yyyy)
-
+    def CreidtButton(self):
+        return self.driver.find_element(By.NAME, "masterCredit").click()
     def Crideit_Pay_Button(self):
         """Method to the pay now button after editing the credit card fields"""
         self.wait.until(EC.visibility_of_element_located((By.ID, "pay_now_btn_ManualPayment")))

@@ -19,7 +19,7 @@ class Cart:
         return self.table_cart().find_elements(By.CSS_SELECTOR, "tbody>tr")
 
     def item_name_table(self):
-        """Method that bring the items name from the table"""
+        """Method that bring the items name,quantity and price from the table"""
         rows = self.table_rows()
         title = []
         for row in rows:
@@ -33,7 +33,7 @@ class Cart:
         return title
 
     def item_price(self):
-        """Method that bring the items price from the table"""
+        """Method that bring the items price from the table as float"""
         rows = self.table_rows()
         price2 = []
         for row in rows:
@@ -62,7 +62,7 @@ class Cart:
         return but[num - 1].click()
 
     def total_price(self):
-        """Method that bring the total price of the order from the cart page"""
+        """Method that bring the total price of the order from the cart page as float"""
         checkout_button = self.driver.find_element(By.ID, "checkOutButton")
         checkout_text = checkout_button.text
         price_text = checkout_text.replace("CHECKOUT ", "").replace("(", "").replace(")", "").replace("$", "").replace(",", "")

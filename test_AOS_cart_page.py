@@ -7,6 +7,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.select import Select
 from AOS_checkout import AdvantageCheckout
 from AOS_home_page import Home_page
+from AOS_New_Account import New_Account
 from AOS_cart_page import Cart
 from AOS_icons_bar import AOS_icons_bar
 from AOS_sign_in_page import sign_in
@@ -15,6 +16,8 @@ from AOS_categories_pages import AOS_categories
 from AOS_New_Account import New_Account
 from AOS_my_orders_page import My_orders
 from time import sleep
+from selenium.webdriver.common.action_chains import ActionChains
+
 
 
 class Test_AOS_Site(TestCase):
@@ -23,6 +26,9 @@ class Test_AOS_Site(TestCase):
         self.driver = webdriver.Chrome(service=self.service_chrome)
         self.driver.get("https://www.advantageonlineshopping.com/#/")
         self.driver.implicitly_wait(10)
+        self.AC=ActionChains(self.driver)
+        self.wait=WebDriverWait(self.driver,10)
+        self.new_account=New_Account(self.driver)
         self.home_page = Home_page(self.driver)
         self.categories = AOS_categories(self.driver)
         self.product = AOS_products(self.driver)
@@ -31,6 +37,7 @@ class Test_AOS_Site(TestCase):
         self.REGISTRATION = New_Account(self.driver)
         self.check = AdvantageCheckout(self.driver)
         self.sginIn = sign_in(self.driver)
+
 
     def test_cart_window_1(self):
         self.home_page.speakers_category().click()
@@ -171,13 +178,14 @@ class Test_AOS_Site(TestCase):
         self.icons.cart_lil_window()
         self.icons.checkout_button().click()
         self.check.New_Account_page()
-        self.check.New_Account("1234567", "nono@gmail.com", "Abc123", "Abc123")
+        self.new_account.New_Account("1234m", "nono21@gmail.com", "Abc123", "Abc123")
         self.check.move_to_checkout().click()
         self.check.SafePayUsername("mama123")
         self.check.SafePayePassword("Baba123")
         self.check.SafePay_Pay_Button().click()
         self.assertEqual("Thank you for buying with Advantage", self.check.Payment_sucssfully())
-        self.icons.cart_icon().click()
+        self.icons.person_icon().click()
+        self.icons.my_orders_click()
         self.assertEqual(self.cart.item_name_table(), [])
         sleep(10)
 
@@ -191,14 +199,20 @@ class Test_AOS_Site(TestCase):
         self.product.add_to_cart().click()
         self.icons.cart_lil_window()
         self.icons.checkout_button().click()
-        self.check.user_name("1234567")
-        self.check.pass_word("Abc123")
+        self.check.user_name("12345")
+        self.check.pass_word("Orwa1234")
         self.check.login_button().click()
         self.check.move_to_checkout().click()
-        self.check.CreditCard("123456789012", "123", "abc", "12", "2027")
-        self.check.Crideit_Pay_Button().click()
+        self.check.CreidtButton()
+        self.check.pay_now().click()
+        self.wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, "div>h2>span")))
         self.icons.cart_icon().click()
         self.assertEqual(self.cart.item_name_table(), [])
+        momo = ActionChains(self.driver)
+        momo.move_to_element(self.driver.find_element(By.NAME, "i_agree")).click().perform()
+        self.wait.until(EC.invisibility_of_element_located((By.CSS_SELECTOR,"ul>li>tool-tip-cart")))
+        self.icons.person_icon().click()
+        self.icons.my_orders_click()
         sleep(7)
 
     def test_login_out(self):
