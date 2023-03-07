@@ -192,7 +192,7 @@ class Test_AOS_Site(TestCase):
         self.icons.cart_lil_window()
         self.icons.checkout_button().click()
         self.check.New_Account_page()
-        self.check.New_Account("dav175", "nono@gmail.com", "Abc123", "Abc123")
+        self.check.New_Account("dav789", "nono@gmail.com", "Abc123", "Abc123")
         self.check.move_to_checkout().click()
         self.check.SafePayUsername("mama123")
         self.check.SafePayePassword("Baba123")

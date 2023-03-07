@@ -86,5 +86,7 @@ class AdvantageCheckout:
         self.driver.find_element(By.NAME, "passwordRegisterPage").send_keys(pas)
         self.driver.find_element(By.NAME, "confirm_passwordRegisterPage").send_keys(cpas)
         momo = ActionChains(self.driver)
-        momo.move_to_element(self.driver.find_element(By.NAME, "i_agree")).click().perform()
+        momo.move_to_element(self.driver.find_element(By.NAME, "i_agree")).perform()
+        self.wait.until(EC.visibility_of_element_located((By.NAME, "i_agree")))
+        self.driver.find_element(By.NAME, "i_agree").click()
         self.driver.find_element(By.ID, "register_btnundefined").click()
