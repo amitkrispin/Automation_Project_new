@@ -149,6 +149,7 @@ class AOS_icons_bar:
         """Method that find the element of the home page from the navigation bar"""
         return self.driver.find_element(By.XPATH, "//nav/a[1]")
     def user_name_value(self):
+        """"Method that returns the value of the username"""
         self.wait.until(EC.invisibility_of_element_located((By.CLASS_NAME, "PopUp")))
         us=self.driver.find_elements(By.CSS_SELECTOR,"ul>li>a>span")
         return us[3].text

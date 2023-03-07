@@ -235,6 +235,7 @@ class Test_AOS_Site(TestCase):
         self.sginIn.username_text("12345")
         self.sginIn.password_text("Orwa1234")
         self.sginIn.signIN_button().click()
-        print(self.icons.user_name_value())
+        username=(self.icons.user_name_value())
+        self.assertIn(username)
         self.icons.person_icon().click()
         self.icons.logout_click()
