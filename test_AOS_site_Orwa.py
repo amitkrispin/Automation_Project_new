@@ -119,6 +119,7 @@ class Test_AOS_Site(TestCase):
         self.product.product_quantity("3")
         self.product.add_to_cart().click()
         self.icons.cart_icon().click()
+        self.wait.until(EC.invisibility_of_element_located(self.product.add_to_cart()))
         self.assertEqual("SHOPPING CART", self.cart.cartshopping())
         self.icons.home_by_navigation().click()
 
