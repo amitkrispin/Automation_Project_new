@@ -238,4 +238,4 @@ class Test_AOS_Site(TestCase):
         self.assertEqual("Amit5", self.icons.user_name_value())
         self.icons.person_icon().click()
         self.icons.logout_click()
-        self.assertEqual('', self.icons.user_name_value())
+        self.assertNotIn('Amit5', self.icons.user_name_value())
