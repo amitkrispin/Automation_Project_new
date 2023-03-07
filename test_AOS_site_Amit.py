@@ -14,6 +14,7 @@ from AOS_products_pages import AOS_products
 from AOS_categories_pages import AOS_categories
 from AOS_New_Account import New_Account
 from AOS_my_orders_page import My_orders
+from  time import sleep
 
 
 class Test_AOS_Site(TestCase):
@@ -119,6 +120,7 @@ class Test_AOS_Site(TestCase):
         self.product.product_quantity("3")
         self.product.add_to_cart().click()
         self.icons.cart_icon().click()
+        self.wait.until(EC.invisibility_of_element_located(self.product.add_to_cart()))
         self.assertEqual("SHOPPING CART", self.cart.cartshopping())
         self.icons.home_by_navigation().click()
 
@@ -192,7 +194,7 @@ class Test_AOS_Site(TestCase):
         self.icons.cart_lil_window()
         self.icons.checkout_button().click()
         self.check.New_Account_page()
-        self.check.New_Account("dav789", "nono@gmail.com", "Abc123", "Abc123")
+        self.check.New_Account("dav7894", "nono@gmail.com", "Abc123", "Abc123")
         self.check.move_to_checkout().click()
         self.check.SafePayUsername("mama123")
         self.check.SafePayePassword("Baba123")
@@ -216,10 +218,11 @@ class Test_AOS_Site(TestCase):
         self.product.add_to_cart().click()
         self.icons.cart_lil_window()
         self.icons.checkout_button().click()
-        self.check.user_name("dav1759")
-        self.check.pass_word("Abc123")
+        self.check.user_name("Asd11")
+        self.check.pass_word("Asd11")
         self.check.login_button().click()
         self.check.move_to_checkout().click()
+        self.check.CreidtButton()
         self.check.pay_now().click()
         self.wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, "div>h2>span")))
         self.orders_num_list.append(self.check.order_number())
