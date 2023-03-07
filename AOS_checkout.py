@@ -3,6 +3,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.select import Select
+from selenium.webdriver.common.action_chains import ActionChains
 
 
 class AdvantageCheckout:
@@ -73,6 +74,16 @@ class AdvantageCheckout:
         return self.driver.find_element(By.ID, "pay_now_btn_MasterCredit")
 
     def order_number(self):
-        """Method that bring the order number after the payment was done"""
+        """Method that bring the order number after the payment id done"""
         order_num = self.driver.find_element(By.ID, "orderNumberLabel")
         return order_num.text
+
+    def New_Account(self, usr: str, ema: str, pas: str, cpas: str):
+        """Method that fill the fields with the information from the user and the register proces"""
+        self.driver.find_element(By.NAME, "usernameRegisterPage").send_keys(usr)
+        self.driver.find_element(By.NAME, "emailRegisterPage").send_keys(ema)
+        self.driver.find_element(By.NAME, "passwordRegisterPage").send_keys(pas)
+        self.driver.find_element(By.NAME, "confirm_passwordRegisterPage").send_keys(cpas)
+        momo = ActionChains(self.driver)
+        momo.move_to_element(self.driver.find_element(By.NAME, "i_agree")).click().perform()
+        self.driver.find_element(By.ID, "register_btnundefined").click()

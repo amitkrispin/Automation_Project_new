@@ -1,6 +1,10 @@
 from unittest import TestCase
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.action_chains import ActionChains
 from AOS_checkout import AdvantageCheckout
 from AOS_home_page import Home_page
 from AOS_cart_page import Cart
@@ -10,10 +14,6 @@ from AOS_products_pages import AOS_products
 from AOS_categories_pages import AOS_categories
 from AOS_New_Account import New_Account
 from AOS_my_orders_page import My_orders
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.action_chains import ActionChains
 
 
 class Test_AOS_Site(TestCase):
@@ -75,7 +75,7 @@ class Test_AOS_Site(TestCase):
         prod_2_price = self.icons.product_price_text(1)
         prod_2_qua = self.icons.quantity_text(1)
         prod_2_color = self.icons.product_color_text(1)
-        self.assertIn("HP CHROMEBOOK 14",self.icons.product_name_text(1))
+        self.assertIn("HP CHROMEBOOK 14", self.icons.product_name_text(1))
         self.assertEqual(prod_2_price, self.icons.product_price_text(1))
         self.assertEqual(prod_2_color, self.icons.product_color_text(1))
         self.assertEqual(prod_2_qua, self.icons.quantity_text(1))
@@ -179,7 +179,6 @@ class Test_AOS_Site(TestCase):
         self.assertEqual("TABLETS", self.categories.category_title_text())
         self.icons.logo()
         self.assertEqual("SPECIAL OFFER", self.home_page.move_to_special_offer())
-        self.icons.home_by_navigation().click()
 
     def test_checkout_8(self):
         self.home_page.tablets_category().click()
