@@ -10,6 +10,7 @@ class New_Account:
         self.wait = WebDriverWait(self.driver, 10)
 
     def New_Account(self, usr: str, ema: str, pas: str, cpas: str):
+        """Method that fill the fields with the information from the user and the register proces"""
         self.driver.find_element(By.NAME, "usernameRegisterPage").send_keys(usr)
         self.driver.find_element(By.NAME, "emailRegisterPage").send_keys(ema)
         self.driver.find_element(By.NAME, "passwordRegisterPage").send_keys(pas)

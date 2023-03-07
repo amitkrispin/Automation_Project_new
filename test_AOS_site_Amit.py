@@ -14,7 +14,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
-from time import sleep
 
 
 class Test_AOS_Site(TestCase):
@@ -52,6 +51,7 @@ class Test_AOS_Site(TestCase):
         self.icons.cart_lil_window()
         pro_qua = self.icons.total_items()
         self.assertEqual(pro_qua, self.icons.total_items())
+        self.icons.home_by_navigation().click()
 
     def test_cart_window_2(self):
         self.home_page.speakers_category().click()
@@ -92,7 +92,7 @@ class Test_AOS_Site(TestCase):
         self.assertEqual(prod_3_price, self.icons.product_price_text(1))
         self.assertEqual(prod_3_color, self.icons.product_color_text(1))
         self.assertEqual(prod_3_qua, self.icons.quantity_text(1))
-        self.icons.logo()
+        self.icons.home_by_navigation().click()
 
     def test_cart_window_3(self):
         self.home_page.speakers_category().click()
@@ -102,14 +102,15 @@ class Test_AOS_Site(TestCase):
         self.product.add_to_cart().click()
         self.icons.logo()
         self.home_page.mice_category().click()
-        self.categories.choose_product(1).click()
+        self.categories.choose_product(2).click()
         self.product.product_quantity_element().click()
         self.product.product_quantity("1")
         self.product.add_to_cart().click()
         self.icons.cart_lil_window()
         self.icons.remove_product(1)
-        self.assertNotIn("BOSE SOUNDLINK BLUETOOTH SPEAKER III", self.icons.product_name_text(1))
-        self.icons.logo()
+        total_prod = self.icons.total_items()
+        self.assertEqual(total_prod, self.icons.quantity_text(1))
+        self.icons.home_by_navigation().click()
 
     def test_cart_page_4(self):
         self.home_page.speakers_category().click()
@@ -119,7 +120,7 @@ class Test_AOS_Site(TestCase):
         self.product.add_to_cart().click()
         self.icons.cart_icon().click()
         self.assertEqual("SHOPPING CART", self.cart.cartshopping())
-        self.icons.logo()
+        self.icons.home_by_navigation().click()
 
     def test_cart_5(self):
         self.home_page.speakers_category().click()
@@ -144,7 +145,7 @@ class Test_AOS_Site(TestCase):
         for i in self.cart.item_name_table():
             print(i)
 
-        self.icons.logo()
+        self.icons.home_by_navigation().click()
 
     def test_cart_6(self):
         self.home_page.speakers_category().click()
@@ -168,7 +169,7 @@ class Test_AOS_Site(TestCase):
         self.product.product_quantity("5")
         self.product.add_to_cart().click()
         self.assertEqual("10", self.icons.total_items())
-        self.icons.logo()
+        self.icons.home_by_navigation().click()
 
     def test_tablets_home_7(self):
         self.home_page.tablets_category().click()
@@ -178,7 +179,7 @@ class Test_AOS_Site(TestCase):
         self.assertEqual("TABLETS", self.categories.category_title_text())
         self.icons.logo()
         self.assertEqual("SPECIAL OFFER", self.home_page.move_to_special_offer())
-        self.icons.logo()
+        self.icons.home_by_navigation().click()
 
     def test_checkout_8(self):
         self.home_page.tablets_category().click()
@@ -192,7 +193,7 @@ class Test_AOS_Site(TestCase):
         self.icons.cart_lil_window()
         self.icons.checkout_button().click()
         self.check.New_Account_page()
-        self.check.New_Account("dav12345", "nono@gmail.com", "Abc123", "Abc123")
+        self.check.New_Account("dav145", "nono@gmail.com", "Abc123", "Abc123")
         self.check.move_to_checkout().click()
         self.check.SafePayUsername("mama123")
         self.check.SafePayePassword("Baba123")
@@ -204,6 +205,7 @@ class Test_AOS_Site(TestCase):
         self.assertEqual(self.orders_num_list[0], self.orders.order_num(1))
         self.icons.cart_icon().click()
         self.assertEqual(self.cart.item_name_table(), [])
+        self.icons.home_by_navigation().click()
 
     def test_checkout_9(self):
         self.home_page.tablets_category().click()
@@ -227,6 +229,7 @@ class Test_AOS_Site(TestCase):
         self.assertEqual(self.orders_num_list[0], self.orders.order_num(1))
         self.icons.cart_icon().click()
         self.assertEqual(self.cart.item_name_table(), [])
+        self.icons.home_by_navigation().click()
 
     def test_login_out_10(self):
         self.icons.person_icon().click()

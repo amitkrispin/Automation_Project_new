@@ -67,38 +67,38 @@ class AOS_icons_bar:
         return self.my_account().click()
 
     def cart_lil_window(self):
-        """Method to find the cart flow window element"""
+        """Method to find the cart popup window element"""
         self.AC.move_to_element(self.cart_icon()).perform()
         self.wait.until(EC.visibility_of_element_located((By.TAG_NAME, "table")))
         return self.driver.find_element(By.TAG_NAME, "table")
 
     def products_color(self):
-        """Method to find the color element from the lil flow window of the cart icon"""
+        """Method to find the color element from the popup window of the cart icon"""
         self.wait.until(EC.visibility_of_element_located((By.TAG_NAME, "table")))
         return self.driver.find_elements(By.CSS_SELECTOR, "table>tbody>tr>td>a>label>span")
 
     def product_color_text(self, num: int):
-        """Method that bring the color text from the lil flow window of the cart icon"""
+        """Method that bring the color name from the popup window of the cart icon"""
         self.wait.until(EC.visibility_of_element_located((By.TAG_NAME, "table")))
         return self.products_color()[num - 1].text
 
     def products_name(self):
-        """Method that find the product name element from the lil flow window of cart icon"""
+        """Method that find the product name element from the popup window of cart icon"""
         self.wait.until(EC.visibility_of_element_located((By.TAG_NAME, "table")))
         return self.driver.find_elements(By.CSS_SELECTOR, "table>tbody>tr>td>a>h3")
 
     def product_name_text(self, num: int):
-        """Method that bring the product name text from the lil flow window of the cart icon"""
+        """Method that bring the product name from the popup window of the cart icon"""
         self.wait.until(EC.visibility_of_element_located((By.TAG_NAME, "table")))
         return self.products_name()[num - 1].text
 
     def products_prices(self):
-        """Method to find the price element from the lil flow window of the cart icon"""
+        """Method that find the price element from the popup window of the cart icon"""
         self.wait.until(EC.visibility_of_element_located((By.TAG_NAME, "table")))
         return self.driver.find_elements(By.CSS_SELECTOR, "table>tbody>tr>td>p")
 
     def product_price_text(self, num: int):
-        """Method that bring the price text from the lil flow window of the cart icon"""
+        """Method that bring the price text of a product from the popup window of the cart icon"""
         self.wait.until(EC.visibility_of_element_located((By.TAG_NAME, "table")))
         return self.products_prices()[num - 1].text
 
@@ -111,17 +111,17 @@ class AOS_icons_bar:
         return price2
 
     def checkout_button(self):
-        """Method of check out button from the lil flow window of the cart icon"""
+        """Method of the checkout button from the popup window of the cart icon"""
         self.wait.until(EC.visibility_of_element_located((By.TAG_NAME, "table")))
         return self.driver.find_element(By.ID, "checkOutPopUp")
 
     def quantity_element(self):
-        """Method that find the quantity element in the lil flow cart icon window"""
+        """Method that find the quantity element in the popup cart icon window"""
         self.wait.until(EC.visibility_of_element_located((By.TAG_NAME, "table")))
         return self.driver.find_elements(By.CSS_SELECTOR, "a>label.ng-binding")
 
     def quantity_text(self, num: int):
-        """Method that find the quantity text in the lil flow cart icon window"""
+        """Method that return the quantity number of a product from the popup cart icon window"""
         self.wait.until(EC.visibility_of_element_located((By.TAG_NAME, "table")))
         index = num - 1
         if (index % 2) != 0:
@@ -132,12 +132,13 @@ class AOS_icons_bar:
             return QUA1
 
     def remove_product(self, num: int):
-        """Method of removing product from cart icon lil flow window"""
+        """Method of removing product from cart icon popup window"""
         self.wait.until(EC.visibility_of_element_located((By.TAG_NAME, "table")))
         eh = self.driver.find_elements(By.CSS_SELECTOR, ".removeProduct")
         return eh[num].click()
 
     def total_items(self):
+        """Method that bring the number of the total items in the cart from the popup window of the cart icon"""
         self.wait.until(EC.visibility_of_element_located((By.TAG_NAME, "table")))
         el = self.driver.find_elements(By.CSS_SELECTOR, "tfoot>tr>td>span>label")
         total_items_text = el[0].text
@@ -145,5 +146,6 @@ class AOS_icons_bar:
         return total_items
 
     def home_by_navigation(self):
+        """Method that find the element of the home page from the navigation bar"""
         return self.driver.find_element(By.XPATH, "//nav/a[1]")
 
